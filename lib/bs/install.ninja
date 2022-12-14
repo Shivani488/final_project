@@ -1,0 +1,17 @@
+rescript = 1
+rule cp
+  command = cp $i $out
+rule touch
+ command = touch $out
+o Foo-Paradigms_project.cmi : cp ../bs/src/Foo-Paradigms_project.cmi
+o Foo-Paradigms_project.cmj : cp ../bs/src/Foo-Paradigms_project.cmj
+o Foo-Paradigms_project.cmt : cp ../bs/src/Foo-Paradigms_project.cmt
+o Foo.re : cp ../../src/Foo.re
+o reasonweb-Paradigms_project.cmi : cp ../bs/src/reasonweb-Paradigms_project.cmi
+o reasonweb-Paradigms_project.cmj : cp ../bs/src/reasonweb-Paradigms_project.cmj
+o reasonweb-Paradigms_project.cmt : cp ../bs/src/reasonweb-Paradigms_project.cmt
+o reasonweb.re : cp ../../src/reasonweb.re
+o Paradigms_project.cmi : cp ../bs/Paradigms_project.cmi
+o Paradigms_project.cmj : cp ../bs/Paradigms_project.cmj
+o Paradigms_project.cmt : cp ../bs/Paradigms_project.cmt
+build install.stamp : touch Foo-Paradigms_project.cmi Foo-Paradigms_project.cmj reasonweb-Paradigms_project.cmi reasonweb-Paradigms_project.cmj Paradigms_project.cmi Paradigms_project.cmj

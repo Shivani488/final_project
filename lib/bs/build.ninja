@@ -1,0 +1,20 @@
+rescript = 1
+rule astj
+  command = /usr/local/lib/node_modules/bs-platform/darwin/bsc.exe  -warn-error +101 -bs-v 9.0.2  -absname -bs-ast -o $out $i
+o src/Foo.ast : astj ../../src/Foo.re
+rule deps
+  command = /usr/local/lib/node_modules/bs-platform/darwin/bsb_helper.exe -hash d5caf3fb4a7d1b759dd3c7973b730e18 -bs-ns Paradigms_project $in
+  restat = 1
+o src/Foo.d : deps src/Foo.ast
+rule mij
+  command = /usr/local/lib/node_modules/bs-platform/darwin/bsc.exe -bs-ns Paradigms_project -I . -I src   -warn-error +101 -bs-package-name paradigms_project -bs-package-output commonjs:$in_d:.bs.js $i
+  dyndep = 1
+  restat = 1
+o src/Foo-Paradigms_project.cmj src/Foo-Paradigms_project.cmi ../../src/Foo.bs.js : mij src/Foo.ast
+o src/reasonweb.ast : astj ../../src/reasonweb.re
+o src/reasonweb.d : deps src/reasonweb.ast
+o src/reasonweb-Paradigms_project.cmj src/reasonweb-Paradigms_project.cmi ../../src/reasonweb.bs.js : mij src/reasonweb.ast
+rule build_package
+  command = /usr/local/lib/node_modules/bs-platform/darwin/bsc.exe -w -49 -color always -no-alias-deps  $i
+  restat = 1
+o Paradigms_project.cmi : build_package Paradigms_project.mlmap
